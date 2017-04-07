@@ -13,8 +13,9 @@ class Primes
 		// number of Primes we need to find
 		int numberOfPrimes= columns *columns;
 
-		System.out.println("Number of Primes is" + numberOfPrimes) ;
+		
 		// upper bound on how many numbers to check to find our primes
+		// We will likely more primes than we need
 		double maxNumber =  numberOfPrimes*(Math.log((double)numberOfPrimes)) + numberOfPrimes *(Math.log(Math.log((double)numberOfPrimes)));
 
 		// round this to integer
@@ -40,7 +41,7 @@ class Primes
 				Numbers[j]=1;
 			}
 		}
-
+                // It may be better to wrap this into the output and forget the ArrayList<Integer> primes ??
 		for (int j=lastPrime;j<max;j++)	{
 			 
 			if (Numbers[j]==0){
