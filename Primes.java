@@ -2,6 +2,21 @@ import java.util.*;
 import java.lang.Math.*;
 class Primes
 {
+	public static void DisplayPrimes(int maxSize,int columns, int rows,ArrayList<Integer> primes)
+	{
+		int primesSize=primes.size();	
+		for (int row=0;row <rows;row++)
+		{
+			StringBuilder sb = new StringBuilder("");
+			for (int primeIndex=row *columns;primeIndex< row *columns +columns && primeIndex <primesSize;primeIndex++)
+			{
+				String numberString = String.format("%1$" + maxSize + "s",("" +primes.get(primeIndex)));
+
+			    sb.append("|" + numberString);
+			}
+			System.out.println(sb.toString() + "|");
+		}
+	}
 	public static void main(String args[]){
 
 		int columns = Integer.parseInt(args[0]) +1;
@@ -47,7 +62,7 @@ class Primes
 		}
                 // It may be better to wrap this into the output and forget the ArrayList<Integer> primes ??
 		// complete the list of primes
-		for (int j=lastPrime;j<max;j++)	{
+		for (int j=lastPrime+1;j<max;j++)	{
 			 
 			if (Numbers[j]==0){
 				// perhaps stop when we have enough?
@@ -58,19 +73,9 @@ class Primes
 		}
 		// find the biggest number we might display and use that for formatting
 		int maxSize=("" + lastPrime).length();
-			int primesSize=primes.size();
 			
-		for (int row=0;row <rows;row++)
-		{
-			StringBuilder sb = new StringBuilder("");
-			for (int primeIndex=row *columns;primeIndex< row *columns +columns && primeIndex <primesSize;primeIndex++)
-			{
-				String numberString = String.format("%1$" + maxSize + "s",("" +primes.get(primeIndex)));
-
-			    sb.append("|" + numberString);
-			}
-			System.out.println(sb.toString() + "|");
-		}
+		DisplayPrimes(maxSize,columns, rows,primes);
+		
 		
 	}
 
