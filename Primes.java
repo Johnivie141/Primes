@@ -36,7 +36,8 @@ class Primes
 		double maxNumber =  numberOfPrimes*(Math.log((double)numberOfPrimes)) + numberOfPrimes *(Math.log(Math.log((double)numberOfPrimes)));
 
 		// round this to integer
-		int max = (int)Math.round(maxNumber);
+		// add 1 so we get 0...maxNumber
+		int max = (int)Math.round(maxNumber)+1;
 	        	
 		int[] Numbers = new int[max];
 		int lastPrime=0;
