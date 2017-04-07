@@ -6,4 +6,6 @@ download Primes.java
 compile using javac Primes.java (OR download Primes.class)
 java Primes # where # is a number >0
 
+What would I do if I had more time.
+Figure out a way to use a smaller array.
 
