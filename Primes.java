@@ -2,7 +2,53 @@ import java.util.*;
 import java.lang.Math.*;
 class Primes
 {
-	public static void DisplayPrimes(int maxSize,int columns, int rows,ArrayList<Integer> primes)
+
+	public static ArrayList<Integer> findPrimes(int numberOfPrimes){
+		// We will likely more primes than we need
+		double maxNumber =  numberOfPrimes*(Math.log((double)numberOfPrimes)) + numberOfPrimes *(Math.log(Math.log((double)numberOfPrimes)));
+
+		// round this to integer
+		// add 1 so we get 0...maxNumber
+		int max = (int)Math.round(maxNumber)+1;
+	        	
+		int[] Numbers = new int[max];
+		int lastPrime=0;
+		ArrayList<Integer> primes = new ArrayList<Integer>();
+		//Sieve of Eratosthenes 
+		// Cross out all numbers that are multiples
+		// when done 
+		for (int i=2;i*i<=max;i++)
+		{
+
+			for (;Numbers[i]==1;i++);
+			
+		   
+			
+			lastPrime=i;
+			primes.add(lastPrime);
+			// if we have reached the square root of max we are finished
+			if (i*i >max) break;
+			for (int j=i+i;j<max;j=j+i)
+			{
+				Numbers[j]=1;
+			}
+		}
+                // It may be better to wrap this into the output and forget the ArrayList<Integer> primes ??
+		// complete the list of primes
+		for (int j=lastPrime+1;j<max;j++)	{
+			 
+			if (Numbers[j]==0){
+				// perhaps stop when we have enough?
+				primes.add(j);
+				if (primes.size() ==numberOfPrimes) break;
+			}
+			
+		}			//skip all numbers already marked
+
+		return primes;
+
+	}
+	public static void displayPrimes(int maxSize,int columns, int rows,ArrayList<Integer> primes)
 	{
 		int primesSize=primes.size();	
 		for (int row=0;row <rows;row++)
@@ -32,50 +78,11 @@ class Primes
 
 		
 		// upper bound on how many numbers to check to find our primes
-		// We will likely more primes than we need
-		double maxNumber =  numberOfPrimes*(Math.log((double)numberOfPrimes)) + numberOfPrimes *(Math.log(Math.log((double)numberOfPrimes)));
 
-		// round this to integer
-		// add 1 so we get 0...maxNumber
-		int max = (int)Math.round(maxNumber)+1;
-	        	
-		int[] Numbers = new int[max];
-		int lastPrime=0;
-		ArrayList<Integer> primes = new ArrayList<Integer>();
-		//Sieve of Eratosthenes 
-		// Cross out all numbers that are multiples
-		// when done 
-		for (int i=2;i*i<=max;i++)
-		{
-			//skip all numbers already marked
-			for (;Numbers[i]==1;i++);
-			
-		   
-			
-			lastPrime=i;
-			primes.add(lastPrime);
-			// if we have reached the square root of max we are finished
-			if (i*i >max) break;
-			for (int j=i+i;j<max;j=j+i)
-			{
-				Numbers[j]=1;
-			}
-		}
-                // It may be better to wrap this into the output and forget the ArrayList<Integer> primes ??
-		// complete the list of primes
-		for (int j=lastPrime+1;j<max;j++)	{
-			 
-			if (Numbers[j]==0){
-				// perhaps stop when we have enough?
-				primes.add(j);
-				lastPrime=j;
-			}
-			
-		}
 		// find the biggest number we might display and use that for formatting
-		int maxSize=("" + lastPrime).length();
-			
-		DisplayPrimes(maxSize,columns, rows,primes);
+	        ArrayList<Integer> primes = findPrimes(numberOfPrimes);		
+		int maxSize=("" + primes.get(primes.size() -1)).length();
+		displayPrimes(maxSize,columns, rows,primes);
 		
 		
 	}
