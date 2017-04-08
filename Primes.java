@@ -28,8 +28,8 @@ class Primes
 			for (;Numbers[index]==1;index++);
 			
 		   
-			
-			lastPrime=3+(index*2);
+			number = 3+(index *2);
+			lastPrime=number;
 			primes.add(lastPrime);
 			// if we have reached the square root of max we are finished
 			if (number*number > max) break;
