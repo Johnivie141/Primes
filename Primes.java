@@ -11,33 +11,40 @@ class Primes
 		// add 1 so we get 0...maxNumber
 		int max = (int)Math.round(maxNumber)+1;
 	        	
-		int[] Numbers = new int[max];
+		// Hey we only need to store odd numbers in the array
+		int[] Numbers = new int[max/2+1];
 		int lastPrime=0;
 		ArrayList<Integer> primes = new ArrayList<Integer>();
+		primes.add(2);
 		//Sieve of Eratosthenes 
 		// Cross out all numbers that are multiples
 		// when done 
-		for (int i=2;i*i<=max;i++)
+		// should go to number <=max
+		int index;
+		for (int number=3;number<=max;number+=2)
 		{
 
-			for (;Numbers[i]==1;i++);
+			index=(number -3)/2;
+			for (;Numbers[index]==1;index++);
 			
 		   
 			
-			lastPrime=i;
+			lastPrime=3+(index*2);
 			primes.add(lastPrime);
 			// if we have reached the square root of max we are finished
-			if (i*i >max) break;
-			for (int j=i+i;j<max;j=j+i)
+			if (number*number > max) break;
+			for (int j=3*number;j<max;j=j+2*number)
 			{
-				Numbers[j]=1;
+				index= (j-3) /2;
+				Numbers[index]=1;
 			}
 		}
                 // It may be better to wrap this into the output and forget the ArrayList<Integer> primes ??
 		// complete the list of primes
-		for (int j=lastPrime+1;j<max;j++)	{
+		for (int j=lastPrime+2;j<max;j+=2)	{
 			 
-			if (Numbers[j]==0){
+			index=(j-3)/2;
+			if (Numbers[index]==0){
 				// perhaps stop when we have enough?
 				primes.add(j);
 				if (primes.size() ==numberOfPrimes) break;
@@ -64,6 +71,12 @@ class Primes
 		}
 	}
 	public static void main(String args[]){
+		
+		// forgot this check
+		if (args.length <1){
+	          System.out.println("please enter a number greater than 1");
+		  return;
+		}
 
 		int columns = Integer.parseInt(args[0]) +1;
 		// maybe we will change this later for 3x100 etc.
